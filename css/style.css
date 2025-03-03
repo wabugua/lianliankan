@@ -1,0 +1,179 @@
+:root {
+    --primary-color: #3498db;
+    --primary-gradient: linear-gradient(135deg, #3498db, #2980b9);
+    --highlight-color: #e74c3c;
+    --highlight-gradient: linear-gradient(135deg, #e74c3c, #c0392b);
+    --card-bg: #ffffff;
+    --card-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    --bg-color: #f5f7fa;
+    --text-color: #2c3e50;
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: 'Microsoft Yahei', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+header {
+    text-align: center;
+    padding: 30px 20px;
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    margin-bottom: 40px;
+}
+
+header h1 {
+    margin: 0 0 20px 0;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    letter-spacing: 1px;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+select, button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all var(--transition-speed) ease;
+    font-weight: 500;
+}
+
+select {
+    background: white url('data:image/svg+xml;utf8,<svg fill="%232c3e50" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+    padding-right: 40px;
+    appearance: none;
+}
+
+button {
+    background: var(--primary-gradient);
+    color: white;
+    font-weight: bold;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.game-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    flex-grow: 1;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    position: relative;
+    perspective: 1000px;
+}
+
+.words-column, .meanings-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-height: 600px;
+    transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+.word-card {
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    text-align: center;
+    font-size: 18px;
+    user-select: none;
+    box-shadow: var(--card-shadow);
+    border-left: 4px solid transparent;
+}
+
+.word-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    border-left: 4px solid var(--primary-color);
+}
+
+.word-card.active {
+    background: var(--highlight-gradient);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+}
+
+#connection-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.level-display {
+    background: var(--highlight-gradient) !important;
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .game-board {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    select, button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
